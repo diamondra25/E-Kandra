@@ -6,6 +6,7 @@ public class Enumeration {
     InProgress,
     Delivered,
     Completed,
-    Cancelled
+    Cancelled, 
+    Expired
 }
 }
