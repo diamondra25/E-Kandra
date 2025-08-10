@@ -14,6 +14,7 @@ import lombok.Setter;
 public class Review {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "review_seq")
     private Long id;
 
     @NotNull

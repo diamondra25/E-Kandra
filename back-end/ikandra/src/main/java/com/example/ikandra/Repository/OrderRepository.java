@@ -8,5 +8,6 @@ import com.example.ikandra.Model.Order;
 
 public interface OrderRepository extends JpaRepository<Order, Long>{
     Optional<Order> findByClient_IdAndOffer_Id(Long userId, Long offerId);
+    void deleteByClient_IdAndOffer_Id(Long userId, Long offerId);
 
 }

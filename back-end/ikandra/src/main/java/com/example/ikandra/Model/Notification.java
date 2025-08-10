@@ -8,6 +8,9 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.ColumnDefault;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Getter
@@ -17,14 +20,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Notification {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "notif_seq")
     private Long id;
 
     @Column(name = "is_read")
     private Boolean is_read=false;
 
-    @NotNull
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime created_at;
+    @Column(name = "created_at", nullable = true)
+    @ColumnDefault("CURRENT_TIMESTAMP")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime created_at=LocalDateTime.now();
 
     @NotNull
     @Size(max = 255)

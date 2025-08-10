@@ -8,7 +8,10 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import com.example.ikandra.Enumeration.GlobalEnum.Status;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Getter
@@ -20,15 +23,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Payment {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pay_seq")
     private Long id;
 
     @NotNull
     @Column(name = "amount", nullable = false)
     private Double amount;
 
-    @NotNull
-    @Column(name = "paid_at", nullable = false)
-    private LocalDateTime paid_at;
+    @Column(name = "paid_at", nullable = true)
+    @ColumnDefault("CURRENT_TIMESTAMP")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime paid_at=LocalDateTime.now();
 
     @NotNull
     @Size(max = 255)

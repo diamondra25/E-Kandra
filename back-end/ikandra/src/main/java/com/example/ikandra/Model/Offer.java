@@ -3,6 +3,10 @@ package com.example.ikandra.Model;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
@@ -45,14 +49,16 @@ public class Offer {
     @Column(name = "delivery_time_days", nullable = false)
     private Integer delivery_time_days;
 
-    @NotNull
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime created_at;
+    
+    @Column(name = "created_at", nullable = true)
+    @CreationTimestamp
+    @ColumnDefault("CURRENT_TIMESTAMP")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime created_at=LocalDateTime.now();
 
     @NotNull
     @Column(name = "is_active", nullable = false)
     private Boolean is_active = false;
-
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

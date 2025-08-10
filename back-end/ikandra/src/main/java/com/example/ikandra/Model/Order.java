@@ -2,12 +2,20 @@ package com.example.ikandra.Model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import com.example.ikandra.Enumeration.GlobalEnum.Status;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@Getter
+@Setter
 @Entity
 @IdClass(OrderId.class)
 @Table(name="orders")
@@ -32,13 +40,19 @@ public class Order {
     @NotNull
     private Integer price;
 
-    @Column(nullable = false)
-    private LocalDateTime created_at;
+    @Column(nullable = true)
+    @ColumnDefault("CURRENT_TIMESTAMP")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime created_at=LocalDateTime.now();
 
     @Column(nullable = true)
+    @ColumnDefault("CURRENT_TIMESTAMP")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime delivered_at;
 
     @Column(nullable = true)
+    @ColumnDefault("CURRENT_TIMESTAMP")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime completed_at;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY )

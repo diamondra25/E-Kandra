@@ -7,7 +7,10 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import com.example.ikandra.Enumeration.GlobalEnum.Status;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Getter
@@ -23,8 +26,9 @@ public class Transactions {
     @NotNull
     private Double amount;
 
-    @NotNull
     @Column(name = "send_at", nullable = false)
+    @ColumnDefault("CURRENT_TIMESTAMP")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime send_at;
 
     @NotNull

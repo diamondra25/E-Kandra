@@ -19,7 +19,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
 
-  // ✅ Initialisation du user depuis le localStorage
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
